@@ -181,28 +181,24 @@ while place_order:
 
     while True:
         # Ask the customer if they would like to order anything else
-        keep_ordering = input("Would you like to keep ordering? (Y)es or (N)o ")
-
-        # TEMPORARY - remove this break later
-        if keep_ordering == "n":
-            break
-
+        keep_ordering = input("Would you like to keep ordering? (Y)es or (N)o ").lower()
+        
         # 5. Check the customer's input
-
-                # Keep ordering
-
-                # Exit the keep ordering question loop
-
+        match keep_ordering:
+            case 'y':
+                #break this loop and continue to order
+                break
+            case 'n':
                 # Complete the order
-
                 # Since the customer decided to stop ordering, thank them for
                 # their order
+                print("Thank you for your order")
 
                 # Exit the keep ordering question loop
-
-
-                # Tell the customer to try again
-
+                place_order = False
+                break
+            case _:
+                print(f"Your response ({keep_ordering}) was not recognized.  Please specify (Y)es or (N)o")
 
 # Print out the customer's order
 print("This is what we are preparing for you.\n")
