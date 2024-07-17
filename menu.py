@@ -155,11 +155,15 @@ while place_order:
                     print(f"DEBUG {menu_category_item_qty}")
 
                     # Check if the quantity is a number, default to 1 if not
+                    # TODO provide a message to user in this situation
+                    # TODO what if the customer enters 0 or negative 
                     if not menu_category_item_qty.isdigit():
                         menu_category_item_qty = 1
 
                     # Add the item name, price, and quantity to the order list
                     # TODO need to format the output in a more friendly manner
+                    # TODO - check if an order item is already selected and needs
+                    # to just have quantiy updated.
                     new_order_item = dict()
                     new_order_item["Item name"] = menu_category_item_name
                     new_order_item["Quantity"] = menu_category_item_qty
@@ -235,3 +239,10 @@ for item in order_list:
 # 11. Calculate the cost of the order using list comprehension
 # Multiply the price by quantity for each item in the order list, then sum()
 # and print the prices.
+
+list_item_prices = [float(item["Quantity"]) * item["Price"] for item in order_list]
+total_price = sum(list_item_prices)
+print(f"Order Total ${total_price}")
+
+print("Thank you for your purchase.  Please visit us again!")
+
