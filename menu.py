@@ -54,6 +54,7 @@ menu = {
 # menu item name, item price, and quantity ordered
 
 # TODO Setting up as a placeholder, dictionary values will be replaced by customer order process
+'''
 order_list = [
     {
         "Item name":"string value",
@@ -66,6 +67,8 @@ order_list = [
         "Quantity": int
     }
 ]
+'''
+order_list = []
 
 # Launch the store and present a greeting to the customer
 print("Welcome to the variety food truck.")
@@ -210,17 +213,23 @@ print("Item name                 | Price  | Quantity")
 print("--------------------------|--------|----------")
 
 # 6. Loop through the items in the customer's order
+for item in order_list:
 
     # 7. Store the dictionary items as variables
-
+    order_item_name = item["Item name"]
+    order_item_qty = item["Quantity"]
+    order_item_price = item["Price"]    
 
     # 8. Calculate the number of spaces for formatted printing
-
-
+    item_spaces = 26 - len(order_item_name)
+    price_spaces = 7 - len(str(order_item_price))
+    
     # 9. Create space strings
-
+    spaces_name = " " * item_spaces
+    spaces_price = " " * price_spaces
 
     # 10. Print the item name, price, and quantity
+    print(f"{order_item_name}{spaces_name}| {order_item_price}{spaces_price}| {order_item_qty} ")
 
 
 # 11. Calculate the cost of the order using list comprehension
