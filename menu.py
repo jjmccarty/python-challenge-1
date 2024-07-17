@@ -53,6 +53,19 @@ menu = {
 # 1. Set up order list. Order list will store a list of dictionaries for
 # menu item name, item price, and quantity ordered
 
+# TODO Setting up as a placeholder, dictionary values will be replaced by customer order process
+order_list = [
+    {
+        "Item name":"string value",
+        "Price": float,
+        "Quantity": int
+    },
+    {
+        "Item name":"string value",
+        "Price": float,
+        "Quantity": int
+    }
+]
 
 # Launch the store and present a greeting to the customer
 print("Welcome to the variety food truck.")
@@ -91,7 +104,8 @@ while place_order:
             print(f"You selected {menu_category_name}")
 
             # Print out the menu options from the menu_category_name
-            print(f"What {menu_category_name} item would you like to order?")
+            #print(f"What {menu_category_name} item would you like to order?")
+            print(f"The following are the available {menu_category_name} items available:")
             i = 1
             menu_items = {}
             print("Item # | Item name                | Price")
@@ -118,31 +132,45 @@ while place_order:
                     }
                     i += 1
             # 2. Ask customer to input menu item number
-
+            menu_category_item_num = input(f"Please enter the # for the {menu_category_name} would you like to order:")
+            print(f"DEBUG selected {menu_category_item_num}")
 
             # 3. Check if the customer typed a number
-
+            if menu_category_item_num.isdigit():
                 # Convert the menu selection to an integer
-
+                print(f"DEBUG {menu_category_item_num} is a digit")
+                menu_category_item_num = int(menu_category_item_num)
 
                 # 4. Check if the menu selection is in the menu items
-
+                if menu_category_item_num < len(menu_items.keys()):
                     # Store the item name as a variable
-
+                    menu_category_item_name = menu_items[menu_category_item_num]["Item name"]
+                    print(f"DEBUG selected {menu_category_item_name} ")
 
                     # Ask the customer for the quantity of the menu item
-
+                    menu_category_item_qty = input(f"How many of the {menu_category_item_name} items would you like to purchase?")
+                    print(f"DEBUG {menu_category_item_qty}")
 
                     # Check if the quantity is a number, default to 1 if not
-
+                    if not menu_category_item_qty.isdigit():
+                        menu_category_item_qty = 1
 
                     # Add the item name, price, and quantity to the order list
-
+                    # TODO need to format the output in a more friendly manner
+                    new_order_item = dict()
+                    new_order_item["Item name"] = menu_category_item_name
+                    new_order_item["Quantity"] = menu_category_item_qty
+                    new_order_item["Price"] = menu_items[menu_category_item_num]["Price"]
+                    order_list.append(new_order_item)
+                    print(f"Added {new_order_item["Quantity"]} of {new_order_item["Item name"]} for {new_order_item["Price"]} each to order")
 
                     # Tell the customer that their input isn't valid
-
+                else:
+                    print(f"The selection entered  ({menu_category_item_num}) is not a {menu_category_name} item.")
 
                 # Tell the customer they didn't select a menu option
+            else:
+                print(f"The selection entered  ({menu_category_item_num}) is not a {menu_category_name} item.")
 
         else:
             # Tell the customer they didn't select a menu option
@@ -154,6 +182,10 @@ while place_order:
     while True:
         # Ask the customer if they would like to order anything else
         keep_ordering = input("Would you like to keep ordering? (Y)es or (N)o ")
+
+        # TEMPORARY - remove this break later
+        if keep_ordering == "n":
+            break
 
         # 5. Check the customer's input
 
