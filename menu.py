@@ -96,25 +96,25 @@ while place_order:
         i += 1
 
     # Get the customer's input
-    menu_category = input("Please enter the # for the category you wish to order from: ")
+    menu_selection = input("Please enter the # for the category you wish to order from: ")
 
     # Check if the customer's input is a number
-    if menu_category.isdigit():
+    if menu_selection.isdigit():
         # Check if the customer's input is a valid option
-        if int(menu_category) in menu_items.keys():
+        if int(menu_selection) in menu_items.keys():
             # Save the menu category name to a variable
-            menu_category_name = menu_items[int(menu_category)]
+            menu_selection_name = menu_items[int(menu_selection)]
             # Print out the menu category name they selected
-            print(f"You selected {menu_category_name}")
+            print(f"You selected {menu_selection_name}")
 
             # Print out the menu options from the menu_category_name
             #print(f"What {menu_category_name} item would you like to order?")
-            print(f"The following are the items available from {menu_category_name}:")
+            print(f"The following are the items available from {menu_selection_name}:")
             i = 1
             menu_items = {}
             print("Item # | Item name                | Price")
             print("-------|--------------------------|-------")
-            for key, value in menu[menu_category_name].items():
+            for key, value in menu[menu_selection_name].items():
                 # Check if the menu item is a dictionary to handle differently
                 if type(value) is dict:
                     for key2, value2 in value.items():
@@ -136,32 +136,32 @@ while place_order:
                     }
                     i += 1
             # 2. Ask customer to input menu item number
-            menu_category_item_num = input(f"Please enter the # for the {menu_category_name} would you like to order: ")
+            menu_selection_item_num = input(f"Please enter the # for the {menu_selection_name} would you like to order: ")
 
             # 3. Check if the customer typed a number
-            if menu_category_item_num.isdigit():
+            if menu_selection_item_num.isdigit():
                 # Convert the menu selection to an integer
-                menu_category_item_num = int(menu_category_item_num)
+                menu_selection_item_num = int(menu_selection_item_num)
 
                 # 4. Check if the menu selection is in the menu items
-                if menu_category_item_num < len(menu_items.keys()):
+                if menu_selection_item_num <= len(menu_items.keys()):
                     # Store the item name as a variable
-                    menu_category_item_name = menu_items[menu_category_item_num]["Item name"]
+                    menu_selection_item_name = menu_items[menu_selection_item_num]["Item name"]
 
                     # Ask the customer for the quantity of the menu item
-                    menu_category_item_qty = input(f"How many of the {menu_category_item_name} items would you like to purchase? ")
+                    menu_selection_item_qty = input(f"How many of the {menu_selection_item_name} items would you like to purchase? ")
 
                     # Check if the quantity is a number, default to 1 if not
-                    if not menu_category_item_qty.isdigit():                        
-                        print(f"Your entry of {menu_category_item_qty} was not valid.  A quantity of 1 {menu_category_item_name} has been selected for you.")
-                        menu_category_item_qty = 1                    
+                    if not menu_selection_item_qty.isdigit():                        
+                        print(f"WARNING: Your entry of {menu_selection_item_qty} was not valid.  A quantity of 1 {menu_selection_item_name} has been selected for you.")
+                        menu_selection_item_qty = 1                    
 
                     # Add the item name, price, and quantity to the order list
                     # to just have quantiy updated.
                     new_order_item = dict()
-                    new_order_item["Item name"] = menu_category_item_name
-                    new_order_item["Quantity"] = int(menu_category_item_qty)
-                    new_order_item["Price"] = menu_items[menu_category_item_num]["Price"]
+                    new_order_item["Item name"] = menu_selection_item_name
+                    new_order_item["Quantity"] = int(menu_selection_item_qty)
+                    new_order_item["Price"] = menu_items[menu_selection_item_num]["Price"]
 
                     #check to see if the order item is already on the order list
                     item_already_in_list = False
@@ -169,7 +169,6 @@ while place_order:
                     for item in order_list:
                         item_already_in_list = new_order_item["Item name"] == item["Item name"]
                         if item_already_in_list: 
-                            print("item found")
                             break
                         item_idx = item_idx + 1
 
@@ -193,22 +192,22 @@ while place_order:
                         print(f"Qty: {new_order_item["Quantity"]}")
                         print("--------------------------------------------")
                     else:
-                        print(f"You entered a quantity of 0 for {new_order_item["Item name"]}. Nothing was added or updated on your order")
+                        print(f"WARNING: You entered a quantity of 0 for {new_order_item["Item name"]}. Nothing was added or updated on your order")
 
                     # Tell the customer that their input isn't valid
                 else:
-                    print(f"The selection entered  ({menu_category_item_num}) is not a {menu_category_name} item. No items was added to the order.")
+                    print(f"ERROR: The selection entered  ({menu_selection_item_num}) is not a {menu_selection_name} item. No items was added to the order.")
 
                 # Tell the customer they didn't select a menu option
             else:
-                print(f"The selection entered  ({menu_category_item_num}) is not a {menu_category_name} item. No items was added to the order.")
+                print(f"ERROR: The selection entered  ({menu_selection_item_num}) is not a {menu_selection_name} item. No items was added to the order.")
 
         else:
             # Tell the customer they didn't select a menu option
-            print(f"{menu_category} is not a valid menu option. No items were added to the order.")
+            print(f"ERROR: {menu_selection} is not a valid menu option. No items were added to the order.")
     else:
         # Tell the customer they didn't select a number
-        print(f"{menu_category} is not a valid menu option. No items were added to the order.")
+        print(f"ERROR: {menu_selection} is not a valid menu option. No items were added to the order.")
 
     while True:
         # Ask the customer if they would like to order anything else

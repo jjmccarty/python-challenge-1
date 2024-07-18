@@ -61,7 +61,7 @@ Users will continue to be asked if they will to continue ordering menu items unt
 
 > Would you like to keep ordering? (Y)es or (N)o: Y  
  
-The system will accept 'Y' or 'N' and either keep iterating through the order selection process for a 'Y' response, or move to the order summary process for a 'N' response.  
+The system will accept 'Y' or 'N' and either keep iterating through the order selection process for a 'Y' response, or move to the order summary process for a 'N' response.  Note responses are not case sensistive.
 
 ### Order summarization and Total calculation
 Once the user has confirmed the order selection is complete the system will caluculate the order total based on the following. 
