@@ -181,18 +181,18 @@ while place_order:
                             break
                         item_idx = item_idx + 1
 
-                    #if order item is present retrieve  item and update the quantity
+                    #if order item is present retrieve item and update quantity
                     #otherwise append the new item to the order list
                     if not new_order_item["Quantity"] == 0:
                         if item_in_list:                                             
-                            existing_item = order_list[item_idx]
-                            new_qty = existing_item["Quantity"] + new_order_item["Quantity"]
-                            existing_item.update({"Quantity": new_qty})
-                            new_order_item["Quantity"] = existing_item["Quantity"]
-                            print("The following quantities were updated on your order")
+                            e_item = order_list[item_idx]
+                            new_qty = e_item["Quantity"] + new_order_item["Quantity"]
+                            e_item.update({"Quantity": new_qty})
+                            new_order_item["Quantity"] = e_item["Quantity"]
+                            print("UPDATED quantity on following order item")
                         else:    
                             order_list.append(new_order_item)
-                            print("The following item was added to your order")
+                            print("ADDED the following item to order")
 
                         #print the additional item in a friendly manner                    
                         print("--------------------------------------------")
@@ -229,7 +229,7 @@ while place_order:
     while True:
         # Ask the customer if they would like to order anything else
         keep_ordering = input("Would you like to keep ordering? "
-                              + "(Y)es or (N)o ").lower()
+                              + "(Y)es or (N)o: ").lower()
 
         #friendly conversion if the user types in the entire word for yes or no. 
         match keep_ordering:
@@ -292,8 +292,8 @@ for item in order_list:
 # Multiply the price by quantity for each item in the order list, then sum()
 # and print the prices.
 
-list_item_prices = [float(item["Quantity"]) * item["Price"] for item in order_list]
-total_price = round(sum(list_item_prices),2)
+item_prices = [float(item["Quantity"]) * item["Price"] for item in order_list]
+total_price = round(sum(item_prices),2)
 print("----------------------------------------------")
 print(f"Your Order Total is ${total_price}")
 print("----------------------------------------------")
