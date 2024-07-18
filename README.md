@@ -38,7 +38,7 @@ Successful selection will prompt the user to enter the quantity desired for that
 2. Entry of a quantity for an item already added to the order list will update the quanity of that item instead of producing another order list entry
 3. Entry of 0 for the quanity will result in the order item not being added or updated. 
 
->*Please note that the requirements in #2 and #3 of the above rules were not specified in the original instructions, but inferred to better streamline the input by the user and simplification >of the order summarization*
+>*Please note that the requirements in #2 and #3 of the above rules were not specified in the original instructions, but inferred to better streamline the input by the user and simplification of the order summarization*
 
 User selected menu items are stored in a list of dictionary items with the following expected format and types of key/value pairs
 
