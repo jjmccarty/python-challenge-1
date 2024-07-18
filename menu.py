@@ -136,7 +136,7 @@ while place_order:
                     }
                     i += 1
             # 2. Ask customer to input menu item number
-            menu_category_item_num = input(f"Please enter the # for the {menu_category_name} would you like to order:")
+            menu_category_item_num = input(f"Please enter the # for the {menu_category_name} would you like to order: ")
 
             # 3. Check if the customer typed a number
             if menu_category_item_num.isdigit():
@@ -149,24 +149,51 @@ while place_order:
                     menu_category_item_name = menu_items[menu_category_item_num]["Item name"]
 
                     # Ask the customer for the quantity of the menu item
-                    menu_category_item_qty = input(f"How many of the {menu_category_item_name} items would you like to purchase?")
+                    menu_category_item_qty = input(f"How many of the {menu_category_item_name} items would you like to purchase? ")
 
                     # Check if the quantity is a number, default to 1 if not
-                    # TODO what if the customer enters 0 or negative 
                     if not menu_category_item_qty.isdigit():                        
                         print(f"Your entry of {menu_category_item_qty} was not valid.  A quantity of 1 {menu_category_item_name} has been selected for you.")
-                        menu_category_item_qty = 1
+                        menu_category_item_qty = 1                    
 
                     # Add the item name, price, and quantity to the order list
-                    # TODO need to format the output in a more friendly manner
-                    # TODO - check if an order item is already selected and needs
                     # to just have quantiy updated.
                     new_order_item = dict()
                     new_order_item["Item name"] = menu_category_item_name
-                    new_order_item["Quantity"] = menu_category_item_qty
+                    new_order_item["Quantity"] = int(menu_category_item_qty)
                     new_order_item["Price"] = menu_items[menu_category_item_num]["Price"]
-                    order_list.append(new_order_item)
-                    print(f"Added {new_order_item["Quantity"]} of {new_order_item["Item name"]} for {new_order_item["Price"]} each to order")
+
+                    #check to see if the order item is already on the order list
+                    item_already_in_list = False
+                    item_idx = 0
+                    for item in order_list:
+                        item_already_in_list = new_order_item["Item name"] == item["Item name"]
+                        if item_already_in_list: 
+                            print("item found")
+                            break
+                        item_idx = item_idx + 1
+
+                    #if the order item is present simply retrieve the item and update the quantity
+                    #otherwise append the new item to the order list
+                    if not new_order_item["Quantity"] == 0:
+                        if item_already_in_list:                                             
+                            existing_item = order_list[item_idx]
+                            new_qty = existing_item["Quantity"] + new_order_item["Quantity"]
+                            existing_item.update({"Quantity": new_qty})
+                            new_order_item["Quantity"] = existing_item["Quantity"]
+                            print("The following item quantities were updated on your order")
+                        else:    
+                            order_list.append(new_order_item)
+                            print("The following item was added to your order")
+
+                        #print the additional item in a friendly manner                    
+                        print("--------------------------------------------")
+                        print(f"Item: {new_order_item["Item name"]}")
+                        print(f"Price ea: ${new_order_item["Price"]}")
+                        print(f"Qty: {new_order_item["Quantity"]}")
+                        print("--------------------------------------------")
+                    else:
+                        print(f"You entered a quantity of 0 for {new_order_item["Item name"]}. Nothing was added or updated on your order")
 
                     # Tell the customer that their input isn't valid
                 else:
@@ -246,8 +273,10 @@ for item in order_list:
 
 #TODO make sure the float is set to the right decimal places. 
 list_item_prices = [float(item["Quantity"]) * item["Price"] for item in order_list]
-total_price = sum(list_item_prices)
-print(f"Order Total ${total_price}")
+total_price = round(sum(list_item_prices),2)
+print("----------------------------------------------")
+print(f"Your Order Total is ${total_price}")
+print("----------------------------------------------")
 
 print("Thank you for your purchase.  Please visit us again!")
 
