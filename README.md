@@ -30,6 +30,22 @@ Successful selection of a menu category will provide the listing of menu items w
 
 As with menu category selection the user will be prompted to select their desired menu item by number.  Successful selection will prompt the user to enter the quantity desired for that menu item. 
 
+User selected menu items are stored in list of dictionary items with the following expected format of key/value pairs
+
+```
+order_list = [     
+    {         
+        "Item name":"string value",  
+        "Price": float,  
+        "Quantity": int
+    },
+    {
+        "Item name":"string value",
+        "Price": float,
+        "Quantity": int
+    }
+]
+```
 
 
 

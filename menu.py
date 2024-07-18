@@ -53,7 +53,8 @@ menu = {
 # 1. Set up order list. Order list will store a list of dictionaries for
 # menu item name, item price, and quantity ordered
 
-# TODO Setting up as a placeholder, dictionary values will be replaced by customer order process
+# Instantiation of the order list for holding customer order selections. 
+# Expected order format
 '''
 order_list = [
     {
@@ -78,7 +79,7 @@ print("Welcome to the variety food truck.")
 place_order = True
 while place_order:
     # Ask the customer from which menu category they want to order
-    print("From which menu would you like to order? ")
+    print("The following menu categories are available to order from:")
 
     # Create a variable for the menu item number
     i = 1
@@ -95,7 +96,7 @@ while place_order:
         i += 1
 
     # Get the customer's input
-    menu_category = input("Type menu number: ")
+    menu_category = input("Please enter the # for the category you wish to order from: ")
 
     # Check if the customer's input is a number
     if menu_category.isdigit():
@@ -108,7 +109,7 @@ while place_order:
 
             # Print out the menu options from the menu_category_name
             #print(f"What {menu_category_name} item would you like to order?")
-            print(f"The following are the available {menu_category_name} items available:")
+            print(f"The following are the items available from {menu_category_name}:")
             i = 1
             menu_items = {}
             print("Item # | Item name                | Price")
@@ -136,28 +137,24 @@ while place_order:
                     i += 1
             # 2. Ask customer to input menu item number
             menu_category_item_num = input(f"Please enter the # for the {menu_category_name} would you like to order:")
-            print(f"DEBUG selected {menu_category_item_num}")
 
             # 3. Check if the customer typed a number
             if menu_category_item_num.isdigit():
                 # Convert the menu selection to an integer
-                print(f"DEBUG {menu_category_item_num} is a digit")
                 menu_category_item_num = int(menu_category_item_num)
 
                 # 4. Check if the menu selection is in the menu items
                 if menu_category_item_num < len(menu_items.keys()):
                     # Store the item name as a variable
                     menu_category_item_name = menu_items[menu_category_item_num]["Item name"]
-                    print(f"DEBUG selected {menu_category_item_name} ")
 
                     # Ask the customer for the quantity of the menu item
                     menu_category_item_qty = input(f"How many of the {menu_category_item_name} items would you like to purchase?")
-                    print(f"DEBUG {menu_category_item_qty}")
 
                     # Check if the quantity is a number, default to 1 if not
-                    # TODO provide a message to user in this situation
                     # TODO what if the customer enters 0 or negative 
-                    if not menu_category_item_qty.isdigit():
+                    if not menu_category_item_qty.isdigit():                        
+                        print(f"Your entry of {menu_category_item_qty} was not valid.  A quantity of 1 {menu_category_item_name} has been selected for you.")
                         menu_category_item_qty = 1
 
                     # Add the item name, price, and quantity to the order list
@@ -173,22 +170,29 @@ while place_order:
 
                     # Tell the customer that their input isn't valid
                 else:
-                    print(f"The selection entered  ({menu_category_item_num}) is not a {menu_category_name} item.")
+                    print(f"The selection entered  ({menu_category_item_num}) is not a {menu_category_name} item. No items was added to the order.")
 
                 # Tell the customer they didn't select a menu option
             else:
-                print(f"The selection entered  ({menu_category_item_num}) is not a {menu_category_name} item.")
+                print(f"The selection entered  ({menu_category_item_num}) is not a {menu_category_name} item. No items was added to the order.")
 
         else:
             # Tell the customer they didn't select a menu option
-            print(f"{menu_category} was not a menu option.")
+            print(f"{menu_category} is not a valid menu option. No items were added to the order.")
     else:
         # Tell the customer they didn't select a number
-        print("You didn't select a number.")
+        print(f"{menu_category} is not a valid menu option. No items were added to the order.")
 
     while True:
         # Ask the customer if they would like to order anything else
         keep_ordering = input("Would you like to keep ordering? (Y)es or (N)o ").lower()
+
+        #friendly conversion if the user types in the entire word for yes or no. 
+        match keep_ordering:
+            case 'yes':
+                keep_ordering = 'y'
+            case 'no':
+                keep_ordering = 'n'
         
         # 5. Check the customer's input
         match keep_ordering:
@@ -199,7 +203,7 @@ while place_order:
                 # Complete the order
                 # Since the customer decided to stop ordering, thank them for
                 # their order
-                print("Thank you for your order")
+                print("Thank you for your order. Please wait a moment while we calculate your order total.")
 
                 # Exit the keep ordering question loop
                 place_order = False
@@ -240,6 +244,7 @@ for item in order_list:
 # Multiply the price by quantity for each item in the order list, then sum()
 # and print the prices.
 
+#TODO make sure the float is set to the right decimal places. 
 list_item_prices = [float(item["Quantity"]) * item["Price"] for item in order_list]
 total_price = sum(list_item_prices)
 print(f"Order Total ${total_price}")
