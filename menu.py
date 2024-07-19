@@ -140,7 +140,7 @@ while place_order:
             # 2. Ask customer to input menu item number
             menu_selection_num = input(f"Please enter the # for the "
                                             + f"{menu_selection_name} "
-                                            + " you want to order: ")
+                                            + "you want to order: ")
 
             # 3. Check if the customer typed a number
             if menu_selection_num.isdigit():
@@ -148,7 +148,7 @@ while place_order:
                 menu_selection_num = int(menu_selection_num)
 
                 # 4. Check if the menu selection is in the menu items
-                if menu_selection_num <= len(menu_items.keys()):
+                if menu_selection_num <= len(menu_items.keys()) and menu_selection_num != 0:
                     # Store the item name as a variable
                     menu_selection_name = menu_items[menu_selection_num]["Item name"]
 
